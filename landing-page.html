@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upsell Pinterest Scraper - Extract Pin Data Easily</title>
+  <meta name="description" content="Extract Pinterest pins with saves, likes, engagement metrics and more. Export to CSV for easy analysis. $10 one-time payment.">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #2d3748;
+      background: #f7fafc;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .header p {
+      font-size: 20px;
+      opacity: 0.95;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: white;
+      color: #667eea;
+      padding: 16px 40px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .price-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 50px;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: #f7fafc;
+      padding: 30px;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: #667eea;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #2d3748;
+    }
+
+    .feature-card p {
+      color: #718096;
+      font-size: 14px;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      padding: 80px 0;
+      background: #f7fafc;
+    }
+
+    .how-it-works h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: #718096;
+      font-size: 14px;
+    }
+
+    /* Data Section */
+    .data-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .data-section h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .data-subtitle {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 50px;
+    }
+
+    .data-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .data-item {
+      background: #f7fafc;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      border-left: 4px solid #667eea;
+    }
+
+    .data-item strong {
+      display: block;
+      color: #2d3748;
+      margin-bottom: 5px;
+    }
+
+    /* Pricing */
+    .pricing {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .pricing h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .pricing-box {
+      background: white;
+      color: #2d3748;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .price {
+      font-size: 64px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .price-subtitle {
+      color: #718096;
+      margin-bottom: 30px;
+    }
+
+    .benefits {
+      text-align: left;
+      margin: 30px 0;
+    }
+
+    .benefits li {
+      padding: 10px 0;
+      font-size: 16px;
+      list-style: none;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .benefits li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #48bb78;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    /* FAQ */
+    .faq {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .faq h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+
+    .faq-item {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      padding: 25px;
+      background: #f7fafc;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+    }
+
+    .faq-item h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #2d3748;
+    }
+
+    .faq-item p {
+      color: #718096;
+    }
+
+    /* Footer CTA */
+    .footer-cta {
+      padding: 80px 0;
+      background: #f7fafc;
+      text-align: center;
+    }
+
+    .footer-cta h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .footer-cta p {
+      font-size: 18px;
+      color: #718096;
+      margin-bottom: 30px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 30px 0;
+      background: #2d3748;
+      color: white;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 32px;
+      }
+
+      .data-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .price {
+        font-size: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <h1>🚀 Upsell Pinterest Scraper</h1>
+      <p>Extract Pinterest pin data with full engagement metrics. Export to CSV in seconds.</p>
+      <a href="https://nursmain.gumroad.com/l/pinterest-scraper" class="cta-button">Get Started - $10</a>
+      <div class="price-tag">✨ One-time payment • Lifetime access</div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="features">
+    <div class="container">
+      <h2>Powerful Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Rich Data Extraction</h3>
+          <p>Get saves, reactions, likes, repins, comments, shares, and creation dates for every pin.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Lightning Fast</h3>
+          <p>Collect hundreds of pins in minutes. Set your own limits and scroll speed.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💾</div>
+          <h3>CSV Export</h3>
+          <p>Download organized data ready for Excel, Google Sheets, or any analytics tool.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Smart Filtering</h3>
+          <p>Filter pins by minimum saves/likes. Only get the high-performing content you want.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Beautiful Interface</h3>
+          <p>Modern, intuitive UI with real-time progress tracking and stats.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Privacy First</h3>
+          <p>All processing happens in your browser. No data sent to external servers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Purchase License</h3>
+          <p>Buy your license key for $10. Instant delivery via email.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Install Extension</h3>
+          <p>Add the Chrome extension and enter your license key.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Start Scraping</h3>
+          <p>Go to Pinterest search results and click to start collecting data.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Download CSV</h3>
+          <p>Export your data and analyze in your favorite spreadsheet app.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Section -->
+  <div class="data-section">
+    <div class="container">
+      <h2>Data You'll Extract</h2>
+      <p class="data-subtitle">Every pin comes with comprehensive metrics</p>
+      <div class="data-columns">
+        <div class="data-item">
+          <strong>Saves</strong>
+          Number of saves
+        </div>
+        <div class="data-item">
+          <strong>Reactions</strong>
+          Total reactions
+        </div>
+        <div class="data-item">
+          <strong>Likes</strong>
+          Pin likes count
+        </div>
+        <div class="data-item">
+          <strong>Repins</strong>
+          Repin count
+        </div>
+        <div class="data-item">
+          <strong>Comments</strong>
+          Comment count
+        </div>
+        <div class="data-item">
+          <strong>Shares</strong>
+          Share count
+        </div>
+        <div class="data-item">
+          <strong>Created At</strong>
+          Pin creation date
+        </div>
+        <div class="data-item">
+          <strong>Description</strong>
+          Pin description
+        </div>
+        <div class="data-item">
+          <strong>Author</strong>
+          Pin creator
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="pricing">
+    <div class="container">
+      <h2>Simple, One-Time Pricing</h2>
+      <div class="pricing-box">
+        <div class="price">$10</div>
+        <p class="price-subtitle">One-time payment • Lifetime access</p>
+
+        <ul class="benefits">
+          <li>Unlimited pin scraping</li>
+          <li>Export to CSV with full metrics</li>
+          <li>No monthly subscription</li>
+          <li>Instant license delivery</li>
+          <li>Free updates</li>
+          <li>Email support</li>
+        </ul>
+
+        <a href="https://nursmain.gumroad.com/l/pinterest-scraper" class="cta-button">Buy Now - $10</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>How does the license work?</h3>
+        <p>After purchase, you'll receive a unique license key via email. Enter it in the extension to activate. Works on any Chrome browser.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is there a monthly fee?</h3>
+        <p>No! $10 is a one-time payment for lifetime access. No subscriptions, no hidden fees.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I use it on multiple computers?</h3>
+        <p>Yes! Your license works on any computer where you're logged into Chrome.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What data can I extract?</h3>
+        <p>Saves, reactions, likes, repins, comments, shares, creation dates, descriptions, authors, pin links, and image URLs.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is it safe and legal?</h3>
+        <p>Yes! The extension only reads publicly available data from Pinterest. All processing happens in your browser.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What if I have issues?</h3>
+        <p>Email support is included! We'll help you get set up and answer any questions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer CTA -->
+  <div class="footer-cta">
+    <div class="container">
+      <h2>Ready to Extract Pinterest Data?</h2>
+      <p>Join marketers, creators, and researchers using Upsell Pinterest Scraper</p>
+      <a href="https://nursmain.gumroad.com/l/pinterest-scraper" class="cta-button">Get Your License - $10</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="container">
+      <p>&copy; 2025 Upsell Pinterest Scraper. Not affiliated with Pinterest, Inc.</p>
+    </div>
+  </div>
+</body>
+</html>

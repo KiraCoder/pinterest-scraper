@@ -1,0 +1,24 @@
+{
+  "name": "pinterest-scraper",
+  "version": "1.0.0",
+  "description": "Scrape most-liked pins from Pinterest search results",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "keywords": ["pinterest", "scraper", "automation"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "csv-writer": "^1.6.0",
+    "commander": "^11.1.0"
+  }
+}
